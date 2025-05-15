@@ -1,0 +1,10 @@
+# Exclude files and directories from the Docker build context
+# This file is used to specify files and directories that should be ignored by Docker when building an image.
+
+
+.env
+.env.*
+
+*/__pycache__/*
+
+venv
