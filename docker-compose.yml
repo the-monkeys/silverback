@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   silverback_app:
     container_name: "silverback"
@@ -15,7 +13,6 @@ services:
               pip install --upgrade pip &&
               pip install -r requirements.txt && 
               echo 'Running Django server with hot reload...' &&
-              python manage.py migrate &&
               python manage.py runserver 0.0.0.0:8000"
     restart: always
     env_file:
