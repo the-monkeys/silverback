@@ -3,6 +3,7 @@ from django.core.signing import TimestampSigner, SignatureExpired, BadSignature
 from django.core.mail import send_mail
 from django.urls import reverse
 from .forms import LoginForm
+from django.conf import settings
 
 signer = TimestampSigner()
 
@@ -17,29 +18,24 @@ def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            from django.contrib.auth import authenticate
-
-            user = authenticate(
-                request,
-                email=form.cleaned_data["email"],
-                password=form.cleaned_data["password"],
-            )
-            if user:
-                # Send magic link
-                token = signer.sign(user.email)
+            email = form.cleaned_data["email"]
+            if email in settings.CREDENTIALS:
+                print("[LOGIN] Valid email:", email)
+                print("[LOGIN] setting.Credentials:", settings.CREDENTIALS)
+                token = signer.sign(email)
                 verify_url = request.build_absolute_uri(
                     reverse("verify") + f"?token={token}"
                 )
                 send_mail(
-                    "Your Magic Link",
-                    f"Click to verify: {verify_url}",
+                    "Your Magic Login Link",
+                    f"Click to log in: {verify_url}",
                     "no-reply@example.com",
-                    [user.email],
+                    [email],
                 )
-                request.session["pending_email"] = user.email
+                request.session["pending_email"] = email
                 return render(request, "magic_sent.html")
             else:
-                error = "Invalid credentials"
+                error = "Email not recognized"
     else:
         form = LoginForm()
     return render(request, "login.html", {"form": form, "error": error})
