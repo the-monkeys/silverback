@@ -64,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Custom middleware for session management
+    'dashboard.middleware.AuthSessionMiddleware'
 ]
 
 ROOT_URLCONF = 'silverback.urls'
