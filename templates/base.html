@@ -9,23 +9,53 @@
   <body class="bg-gray-100 text-gray-900">
     <div class="flex min-h-screen">
       <!-- Sidebar -->
-      <aside class="w-64 bg-white border-r shadow-sm">
-        <div class="p-6 text-2xl font-bold text-indigo-600 border-b">
-          🦍 Silverback
+      <aside
+        class="w-64 bg-white border-r shadow-sm flex flex-col justify-between"
+      >
+        <div>
+          <div class="p-6 text-2xl font-bold text-indigo-600 border-b">
+            🦍 Silverback
+          </div>
+          <nav class="p-4 space-y-2">
+            <a href="/" class="block px-4 py-2 rounded hover:bg-orange-100"
+              >Home</a
+            >
+            <a
+              href="/admin/"
+              class="block px-4 py-2 rounded hover:bg-orange-100"
+              >Admin</a
+            >
+            <a
+              href="/discord/"
+              class="block px-4 py-2 rounded hover:bg-orange-100"
+              >Discord</a
+            >
+          </nav>
         </div>
-        <nav class="p-4 space-y-2">
-          <a href="/" class="block px-4 py-2 rounded hover:bg-orange-100"
-            >Home</a
-          >
-          <a href="/admin/" class="block px-4 py-2 rounded hover:bg-orange-100"
-            >Admin</a
-          >
+
+        <!-- Auth buttons -->
+        <div class="p-4 border-t">
+          {% if request.session.authenticated_user %}
+          <p class="mb-2 text-sm text-gray-600">
+            Logged in as <br /><strong
+              >{{ request.session.authenticated_user }}</strong
+            >
+          </p>
           <a
-            href="/discord/"
-            class="block px-4 py-2 rounded hover:bg-orange-100"
-            >Discord</a
+            href="{% url 'logout' %}"
+            class="block w-full text-center px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 transition"
           >
-        </nav>
+            Logout
+          </a>
+          {% else %}
+          <a
+            href="{% url 'login' %}"
+            class="block w-full text-center px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+          >
+            Login
+          </a>
+          {% endif %}
+        </div>
       </aside>
 
       <!-- Main Content -->
