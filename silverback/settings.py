@@ -11,7 +11,15 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import json
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Admin credentials
+CREDENTIALS = json.loads(os.getenv('CREDENTIALS', '[]'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +35,14 @@ DEBUG = os.getenv('DEBUG') if os.getenv('DEBUG') else True
 
 ALLOWED_HOSTS = []
 
+# Use SMTP settings in production
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # for testing
+
+AUTHENTICATION_BACKENDS = [
+    'dashboard.backends.EnvBackend',
+]
+
+
 
 # Application definition
 
@@ -37,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

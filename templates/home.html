@@ -5,4 +5,10 @@
 {% block content %}
 <h1 class="text-3xl font-semibold mb-4">Welcome to Silverback Dashboard</h1>
 <p>This is your homepage. Start building awesome things here.</p>
+
+{% if request.session.authenticated_user %}
+    <p>Welcome, {{ request.session.authenticated_user }}!</p>
+  {% else %}
+    <p>You are not logged in. <a href="{% url 'login' %}">Login</a></p>
+{% endif %}
 {% endblock %}
