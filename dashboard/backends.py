@@ -20,9 +20,8 @@ class EnvBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None):
         print("[AUTH BACKEND] Called with:", email)
         for user in settings.CREDENTIALS:
-            if user["email"] == email:
-                if bcrypt.checkpw(password.encode(), user["password"].encode()):
-                    return EnvUser(email)
+            if user["email"] == email and bcrypt.checkpw(password.encode(), user["password"].encode()):
+                return EnvUser(email)
         return None
 
     def get_user(self, user_id):

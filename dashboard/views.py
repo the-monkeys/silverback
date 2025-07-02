@@ -44,7 +44,7 @@ def login_view(request):
 def verify_view(request):
     token = request.GET.get("token")
     try:
-        email = signer.unsign(token, max_age=300)  # 5 min expiry
+        email = signer.unsign(token, max_age=1800)  # 30 min expiry
         if request.session.get("pending_email") == email:
             request.session["authenticated_user"] = email
             return redirect("home")
