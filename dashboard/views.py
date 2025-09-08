@@ -56,3 +56,15 @@ def verify_view(request):
 def logout_view(request):
     request.session.flush()  # Clears all session data
     return redirect("login")
+
+
+def discord_view(request):
+    # discord_api_url = f"https://raw.githubusercontent/"
+    # requests.get(discord_api_url)
+
+    discord_commands = [{ "command_id": 1, "command_name": "healthcheck", "description": "Get health status of monkeys server" }]
+    
+    return render(request, "discord.html", { "discord_commands": discord_commands })
+
+def discord_command_view(request):
+    pass
