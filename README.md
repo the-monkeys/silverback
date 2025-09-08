@@ -5,7 +5,7 @@ Silverback is our admin dashbaord for monkeys. It's purpose is to provide admin 
 
 Using Makefile
 ```sh
-Make dev
+make dev
 ```
 
 Manually 
