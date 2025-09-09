@@ -6,3 +6,7 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    environment:
+      CREDENTIALS: "[]"
+      DEBUG: false
+      DJANGO_SECRET_KEY: "some-random-key"
