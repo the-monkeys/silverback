@@ -3,7 +3,7 @@ name = "silverback"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "asgiref==3.8.1",
     "bcrypt==4.3.0",
@@ -21,9 +21,4 @@ dependencies = [
     "sqlparse==0.5.3",
     "tzdata==2025.2",
     "urllib3==2.5.0",
-]
-
-[dependency-groups]
-dev = [
-    "ruff>=0.12.12",
 ]
