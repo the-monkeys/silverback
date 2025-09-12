@@ -1,0 +1,9 @@
+main {
+	margin-top: 1rem;
+}
+
+@media screen and (min-width: 1048px) {
+	main {
+		margin-inline-start: 16rem;
+	}
+}
