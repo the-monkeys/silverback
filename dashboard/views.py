@@ -62,9 +62,11 @@ def discord_view(request):
     # discord_api_url = f"https://raw.githubusercontent/"
     # requests.get(discord_api_url)
 
-    discord_commands = [{ "command_id": 1, "command_name": "healthcheck", "description": "Get health status of monkeys server" }]
-    
-    return render(request, "discord.html", { "discord_commands": discord_commands })
+    discord_commands = [{"command_id": 1, "command_name": "healthcheck",
+                         "description": "Get health status of monkeys server"}]
 
-def discord_command_view(request):
-    pass
+    return render(request, "discord.html", {"discord_commands": discord_commands})
+
+
+def discord_command_view(request, command):
+    return render(request, "discord-command.html", {"command_name": command})
