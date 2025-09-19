@@ -21,6 +21,11 @@ load_dotenv()
 # Admin credentials
 CREDENTIALS = json.loads(os.getenv('CREDENTIALS', '[]'))
 
+DB_NAME = os.getenv('DB_NAME')
+DB_URL = os.getenv('DB_URL')
+DB_AUTH_TOKEN = os.getenv('DB_AUTH_TOKEN')
+DISCORD_BOT_BASE_URL = os.getenv('DISCORD_BOT_BASE_URL')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -52,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dashboard',
     'widget_tweaks',
 ]
 

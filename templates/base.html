@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>{% block title %}Silverback Dashboard{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-		<script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.38.0/button.min.js"></script>
-		<script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.38.0/ui-shell.min.js"></script>
+    <script type="module"
+            src="https://1.www.s81c.com/common/carbon/web-components/version/v2.38.0/button.min.js"></script>
+    <script type="module"
+            src="https://1.www.s81c.com/common/carbon/web-components/version/v2.38.0/ui-shell.min.js"></script>
 
-		{% load static %}
-		<link rel="stylesheet" href="{% static "base.css" %}">
-	</head>
-	<body>
-		<header>
-			<cds-header>
-				<cds-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu"></cds-header-menu-button>
-				<cds-header-name>🦍 Silverback</cds-header-name>
+    {% block page_scripts %}{% endblock %}
 
-				<cds-header-global class="cds--header__global">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "base.css" %}">
 
-				<cds-side-nav>
-					{% url 'home' as home_url %}
-					<cds-side-nav-link href="{{ home_url }}" {% if request.path == home_url %}active{% endif %}>Home</cds-side-nav-link>
+    {% block page_css %}{% endblock %}
+</head>
+<body>
+<header>
+    <cds-header>
+        <cds-header-menu-button button-label-active="Close menu"
+                                button-label-inactive="Open menu"></cds-header-menu-button>
+        <cds-header-name>🦍 Silverback</cds-header-name>
 
-					{% url 'discord' as discord_url %}
-					<cds-side-nav-link href="{{ discord_url }}" {% if request.path == discord_url %}active{% endif %}>Discord</cds-side-nav-link>
+        <cds-header-global class="cds--header__global">
 
-					<div style="margin-top: auto; margin-bottom: 1rem; padding: 0.5rem 1rem; border-top: solid 1px #eee">
-						Logged in as <strong>{{ request.session.authenticated_user }}</strong>
-						<cds-button href="{% url 'logout' %}" size="md" kind="danger-tertiary" style="display: inline-bock; width: 100%;"> logout</cds-button>
-					</div>
-				</cds-side-nav>
-			</cds-header>
-		</header>
+            <cds-side-nav>
+                {% url 'home' as home_url %}
+                <cds-side-nav-link href="{{ home_url }}" {% if request.path == home_url %}active{% endif %}>Home
+                </cds-side-nav-link>
 
-    <!-- Main Content -->
-    <main>{% block content %}{% endblock %}</main>
-  </body>
+                {% url 'discord' as discord_url %}
+                <cds-side-nav-link href="{{ discord_url }}" {% if request.path == discord_url %}active{% endif %}>
+                    Discord
+                </cds-side-nav-link>
+
+                <div style="margin-top: auto; margin-bottom: 1rem; padding: 0.5rem 1rem; border-top: solid 1px #eee">
+                    Logged in as <strong>{{ request.session.authenticated_user }}</strong>
+                    <cds-button href="{% url 'logout' %}" size="md" kind="danger-tertiary"
+                                style="display: inline-bock; width: 100%;"> logout
+                    </cds-button>
+                </div>
+            </cds-side-nav>
+    </cds-header>
+</header>
+
+<!-- Main Content -->
+<main>{% block content %}{% endblock %}</main>
+</body>
 </html>

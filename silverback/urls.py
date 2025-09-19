@@ -26,7 +26,7 @@ urlpatterns = [
     path("verify/", views.verify_view, name="verify"),
     path("logout/", views.logout_view, name="logout"),
 
-    path("discord", views.discord_view, name="discord"),
+    path("discord/", views.discord_view, name="discord"),
     path("discord/command/<str:command>",
          views.discord_command_view, name="discord-command")
 ]

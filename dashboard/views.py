@@ -1,12 +1,21 @@
+import json
+import os
+
+import libsql
+import requests
 from django.shortcuts import render, redirect
 from django.core.signing import TimestampSigner, SignatureExpired, BadSignature
 from django.core.mail import send_mail
 from django.urls import reverse
+
+from silverback.settings import DISCORD_BOT_BASE_URL, DB_NAME, DB_URL, DB_AUTH_TOKEN
 from .forms import LoginForm
 from django.conf import settings
 
 signer = TimestampSigner()
 
+conn = libsql.connect(DB_NAME, sync_url=DB_URL, auth_token=DB_AUTH_TOKEN)
+conn.sync()
 
 # Create your views here.
 def home(request):
@@ -59,14 +68,18 @@ def logout_view(request):
 
 
 def discord_view(request):
-    # discord_api_url = f"https://raw.githubusercontent/"
-    # requests.get(discord_api_url)
+    bot_status = "unhealthy"
+    try:
+        response = requests.get(DISCORD_BOT_BASE_URL)
+        if response.status_code == 200:
+            bot_status = response.text
+    except requests.exceptions.RequestException as e:
+        print(e)
 
-    discord_commands = [{"command_id": 1, "command_name": "healthcheck",
-                         "description": "Get health status of monkeys server"}]
+    query = conn.execute('SELECT config FROM orangutan').fetchall()
+    commands = json.loads(query[0][0])
 
-    return render(request, "discord.html", {"discord_commands": discord_commands})
-
+    return render(request, "discord.html", { "bot_status": bot_status, "commands": commands })
 
 def discord_command_view(request, command):
     return render(request, "discord-command.html", {"command_name": command})
