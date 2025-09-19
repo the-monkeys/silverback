@@ -10,3 +10,7 @@ services:
       CREDENTIALS: "[]"
       DEBUG: false
       DJANGO_SECRET_KEY: "some-random-key"
+      DISCORD_BOT_BASE_URL: ''
+      DB_NAME: ''
+      DB_URL: ''
+      DB_AUTH_TOKEN: ''
