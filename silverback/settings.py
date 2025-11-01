@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 import json
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -21,9 +22,6 @@ load_dotenv()
 # Admin credentials
 CREDENTIALS = json.loads(os.getenv('CREDENTIALS', '[]'))
 
-DB_NAME = os.getenv('DB_NAME')
-DB_URL = os.getenv('DB_URL')
-DB_AUTH_TOKEN = os.getenv('DB_AUTH_TOKEN')
 DISCORD_BOT_BASE_URL = os.getenv('DISCORD_BOT_BASE_URL')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,18 +33,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", 'some_random_key')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') if os.getenv('DEBUG') else True 
+DEBUG = os.getenv('DEBUG') if os.getenv('DEBUG') else True
 
 ALLOWED_HOSTS = []
 
 # Use SMTP settings in production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # for testing
 
-AUTHENTICATION_BACKENDS = [
-    'dashboard.backends.EnvBackend',
-]
-
-
+AUTHENTICATION_BACKENDS = ['dashboard.backends.EnvBackend']
 
 # Application definition
 
@@ -92,17 +86,43 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'silverback.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+MONKEYS_DB = {
+    "NAME": os.getenv('MONKEYS_DB_NAME'),
+    "HOST": os.getenv('MONKEYS_DB_HOST'),
+    "PORT": os.getenv('MONKEYS_DB_PORT'),
+    "USER": os.getenv('MONKEYS_DB_USER'),
+    "PASSWORD": os.getenv('MONKEYS_DB_PASSWORD')
 }
 
+MONKEYS_DEV_DB = {
+    "NAME": os.getenv('MONKEYS_DEV_DB_NAME'),
+    "HOST": os.getenv('MONKEYS_DEV_DB_HOST'),
+    "PORT": os.getenv('MONKEYS_DEV_DB_PORT'),
+    "USER": os.getenv('MONKEYS_DEV_DB_USER'),
+    "PASSWORD": os.getenv('MONKEYS_DEV_DB_PASSWORD')
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': MONKEYS_DB["NAME"],
+        'HOST': MONKEYS_DB["HOST"],
+        'PORT': MONKEYS_DB["PORT"],
+        'USER': MONKEYS_DB["USER"],
+        'PASSWORD': MONKEYS_DB["PASSWORD"]
+    },
+    'dev': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': MONKEYS_DEV_DB["NAME"],
+        'HOST': MONKEYS_DEV_DB["HOST"],
+        'PORT': MONKEYS_DEV_DB["PORT"],
+        'USER': MONKEYS_DEV_DB["USER"],
+        'PASSWORD': MONKEYS_DEV_DB["PASSWORD"]
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -122,7 +142,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -133,7 +152,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

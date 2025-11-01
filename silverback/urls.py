@@ -28,5 +28,8 @@ urlpatterns = [
 
     path("discord/", views.discord_view, name="discord"),
     path("discord/command/<str:command>",
-         views.discord_command_view, name="discord-command")
+         views.discord_command_view, name="discord-command"),
+
+    # User routes
+    path("users/create-dev-user", views.create_dev_user, name="create_dev_user")
 ]

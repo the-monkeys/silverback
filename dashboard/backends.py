@@ -1,7 +1,13 @@
+import logging
+import sys
+
 import bcrypt
 from django.contrib.auth.backends import BaseBackend
 from django.conf import settings
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 
 class EnvUser:
     def __init__(self, email):
@@ -18,7 +24,7 @@ class EnvUser:
 
 class EnvBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None):
-        print("[AUTH BACKEND] Called with:", email)
+        logger.info(f"[AUTH BACKEND] Called with: {email}")
         for user in settings.CREDENTIALS:
             if user["email"] == email and bcrypt.checkpw(password.encode(), user["password"].encode()):
                 return EnvUser(email)

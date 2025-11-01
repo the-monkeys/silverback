@@ -13,7 +13,7 @@
     {% block page_scripts %}{% endblock %}
 
     {% load static %}
-    <link rel="stylesheet" href="{% static "base.css" %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
 
     {% block page_css %}{% endblock %}
 </head>
@@ -35,6 +35,13 @@
                 <cds-side-nav-link href="{{ discord_url }}" {% if request.path == discord_url %}active{% endif %}>
                     Discord
                 </cds-side-nav-link>
+
+                <cds-side-nav-menu title="Users">
+                    {% url 'create_dev_user' as create_dev_user_url %}
+                    <cds-side-nav-menu-item href="{{ create_dev_user_url }}" {% if request.path == create_dev_user_url %}active{% endif %}>
+                        Create user
+                    </cds-side-nav-menu-item>
+                </cds-side-nav-menu>
 
                 <div style="margin-top: auto; margin-bottom: 1rem; padding: 0.5rem 1rem; border-top: solid 1px #eee">
                     Logged in as <strong>{{ request.session.authenticated_user }}</strong>
