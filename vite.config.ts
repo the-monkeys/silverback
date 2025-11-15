@@ -6,8 +6,15 @@ import adonisjs from '@adonisjs/vite/client'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [tailwindcss(), inertia({ ssr: { enabled: false } }), react(), adonisjs({ entrypoints: ['inertia/app/app.tsx'], reload: ['resources/views/**/*.edge'] })],
-
+  plugins: [
+    tailwindcss(),
+    inertia({ ssr: { enabled: false } }),
+    react(),
+    adonisjs({
+      entrypoints: ['inertia/app/app.tsx', 'resources/css/app.css'],
+      reload: ['resources/views/**/*.edge'],
+    }),
+  ],
 
   /**
    * Define aliases for importing modules from

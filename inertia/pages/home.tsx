@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react'
 
 export default function Home(props: { user: { name: string } }) {
-  console.log(props.user);
+  console.log(props.user)
   return (
     <>
       <Head title="Homepage" />

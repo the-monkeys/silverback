@@ -5,17 +5,16 @@ on: [push]
 jobs:
   hello-world-job:
     runs-on: self-hosted
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Say Hello
         run: echo "Hello World!"
-      
+
       - name: Multi-line greeting
         run: |
           echo "This is a hello world workflow"
           echo "Running on self-hosted runner"
           echo "Triggered by: ${{ github.event_name }}"
-

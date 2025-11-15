@@ -1,2 +1,1 @@
-export default class SessionController {
-}
+export default class SessionController {}
