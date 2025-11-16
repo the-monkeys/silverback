@@ -18,6 +18,6 @@ router.get('/', [HomeController, 'index']).use(middleware.auth())
 router.get('/login', [SessionController, 'index'])
 router.post('/login', [SessionController, 'store'])
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
 	router.get('/users', [UserController, 'index'])
 }
