@@ -9,6 +9,7 @@ export default configApp([
 					tabWidth: 4,
 				},
 			],
+			'@unicorn/filename-case': ['off', { case: 'snakeCase' }],
 		},
 	},
 ])
