@@ -1,0 +1,10 @@
+services:
+  silverback:
+    container_name: silverback
+    env_file: .env
+    volumes:
+      - ./backup:silverback.db
+    build:
+      context: .
+    ports:
+      - "${SILVERBACK_PORT}:${SILVERBACK_INTERNAL_PORT}"

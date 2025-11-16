@@ -1,24 +1,22 @@
 import env from '#start/env'
 import { defineConfig } from '@adonisjs/lucid'
 
+const DB_NAME = env.get('NODE_ENV') == 'production' ? 'silverback.db' : 'test.db'
+
 const dbConfig = defineConfig({
-  connection: 'postgres',
-  connections: {
-    postgres: {
-      client: 'pg',
-      connection: {
-        host: env.get('DB_HOST'),
-        port: env.get('DB_PORT'),
-        user: env.get('DB_USER'),
-        password: env.get('DB_PASSWORD'),
-        database: env.get('DB_DATABASE'),
-      },
-      migrations: {
-        naturalSort: true,
-        paths: ['database/migrations'],
-      },
-    },
-  },
+	connection: 'sqlite',
+	connections: {
+		sqlite: {
+			client: 'sqlite3',
+			connection: {
+				filename: DB_NAME,
+			},
+			migrations: {
+				naturalSort: true,
+				paths: ['database/migrations'],
+			},
+		},
+	},
 })
 
 export default dbConfig
