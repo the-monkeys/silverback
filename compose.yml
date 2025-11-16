@@ -3,7 +3,7 @@ services:
     container_name: silverback
     env_file: .env
     volumes:
-      - ./backup:silverback.db
+      - ./backup:/data
     build:
       context: .
     ports:

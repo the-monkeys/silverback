@@ -1,7 +1,7 @@
 import env from '#start/env'
 import { defineConfig } from '@adonisjs/lucid'
 
-const DB_NAME = env.get('NODE_ENV') === 'production' ? 'silverback.db' : 'test.db'
+const DB_NAME = env.get('NODE_ENV') === 'production' ? 'data/silverback.db' : 'test.db'
 
 const dbConfig = defineConfig({
 	connection: 'sqlite',
