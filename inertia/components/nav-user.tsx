@@ -1,3 +1,4 @@
+import { Form, Link } from '@inertiajs/react'
 import { Bell, ChevronsUpDown, LogOut } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
@@ -74,10 +75,14 @@ export function NavUser({
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
-							<LogOut />
-							Log out
-						</DropdownMenuItem>
+						<Form method="post" action="/logout">
+							<Link href="/logout">
+								<DropdownMenuItem variant="destructive">
+									<LogOut />
+									Log out
+								</DropdownMenuItem>
+							</Link>
+						</Form>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</SidebarMenuItem>

@@ -17,6 +17,12 @@ router.get('/', [HomeController, 'index']).use(middleware.auth())
 
 router.get('/login', [SessionController, 'index'])
 router.post('/login', [SessionController, 'store'])
+router
+	.get('/logout', async ({ auth, response }) => {
+		await auth.use('web').logout()
+		return response.redirect('/login')
+	})
+	.use(middleware.auth())
 
 if (process.env.NODE_ENV === 'development') {
 	router.get('/users', [UserController, 'index'])
