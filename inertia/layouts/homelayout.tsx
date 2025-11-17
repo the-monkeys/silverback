@@ -1,3 +1,5 @@
+import { usePage } from '@inertiajs/react'
+import { Fragment, ReactNode } from 'react'
 import { AppSidebar } from '~/components/app-sidebar'
 import {
 	Breadcrumb,
@@ -10,7 +12,11 @@ import {
 import { Separator } from '~/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
 
-export default function Layout({ children, ...props }) {
+export default function Layout({ children }: { children: ReactNode }) {
+	const page = usePage()
+
+	const breadcrumbs = page.url.split('/').toSpliced(0, 1)
+
 	return (
 		<SidebarProvider>
 			<AppSidebar />
@@ -21,13 +27,28 @@ export default function Layout({ children, ...props }) {
 						<Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
 						<Breadcrumb>
 							<BreadcrumbList>
-								<BreadcrumbItem className="hidden md:block">
-									<BreadcrumbLink href="#">Home</BreadcrumbLink>
-								</BreadcrumbItem>
-								<BreadcrumbSeparator className="hidden md:block" />
-								<BreadcrumbItem>
-									<BreadcrumbPage></BreadcrumbPage>
-								</BreadcrumbItem>
+								{breadcrumbs.map((breadcrumb, index) => {
+									const Component =
+										index === breadcrumbs.length - 1 ? BreadcrumbPage : BreadcrumbLink
+
+									return (
+										<Fragment key={index}>
+											<BreadcrumbItem>
+												<Component href={'/' + breadcrumbs.slice(0, index + 1).join('/')}>
+													{breadcrumb
+														.split(/-| /)
+														.filter(Boolean)
+														.map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+														.join(' ')}
+												</Component>
+											</BreadcrumbItem>
+
+											{index !== breadcrumbs.length - 1 && (
+												<BreadcrumbSeparator className="hidden md:block" />
+											)}
+										</Fragment>
+									)
+								})}
 							</BreadcrumbList>
 						</Breadcrumb>
 					</div>

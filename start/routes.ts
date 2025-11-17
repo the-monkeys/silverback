@@ -24,6 +24,8 @@ router
 	})
 	.use(middleware.auth())
 
+// Development server specific apis
 if (process.env.NODE_ENV === 'development') {
-	router.get('/users', [UserController, 'index'])
+	router.get('/user-management/create', [UserController, 'index']).use(middleware.auth())
+	router.get('/api/users/create-user', [UserController, 'index']).use(middleware.auth())
 }
