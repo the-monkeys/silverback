@@ -24,7 +24,7 @@ function UserManagementCreate() {
 			<div className="max-w-4xl w-full mx-auto px-4 py-10">
 				<div>
 					<h1 className="text-3xl font-semibold">Create User</h1>
-					<p className="font-light">Create users for dev server</p>
+					<p className="font-light">Create users for monkeys dev server</p>
 				</div>
 			</div>
 

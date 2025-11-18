@@ -2,11 +2,7 @@ import User from '#models/user'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class SessionController {
-	index({ inertia, response, auth }: HttpContext) {
-		if (auth.isAuthenticated) {
-			return response.redirect('/')
-		}
-
+	index({ inertia }: HttpContext) {
 		return inertia.render('login')
 	}
 

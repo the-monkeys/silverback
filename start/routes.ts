@@ -15,7 +15,7 @@ const SessionController = () => import('#controllers/session_controller')
 
 router.get('/', [HomeController, 'index']).use(middleware.auth())
 
-router.get('/login', [SessionController, 'index'])
+router.get('/login', [SessionController, 'index']).use(middleware.guest())
 router.post('/login', [SessionController, 'store'])
 router
 	.get('/logout', async ({ auth, response }) => {
