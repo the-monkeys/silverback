@@ -10,16 +10,20 @@ export default class SessionController {
 		return inertia.render('login')
 	}
 
-	async store({ request, auth, inertia, response }: HttpContext) {
-		const { email } = request.only(['email'])
+	async store(ctx: HttpContext) {
+		const { email } = ctx.request.only(['email'])
+
+		ctx.logger.info('Login requested by user', email)
 
 		const user = await User.findBy('email', email)
 
 		if (user) {
-			await auth.use('web').login(user)
-			return response.redirect('/')
+			await ctx.auth.use('web').login(user)
+			return ctx.response.redirect('/')
 		}
 
-		return inertia.render('login')
+		ctx.logger.warn(email, 'not found')
+
+		return ctx.inertia.render('login')
 	}
 }
