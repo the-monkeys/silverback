@@ -1,6 +1,6 @@
 name: Lint
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   lint:
@@ -13,9 +13,7 @@ jobs:
       - name: setup bun
         shell: bash
         run: |
-          cp -r ~/.bun ${{ github.workspace }}/
-
-          export BUN_INSTALL="${{ github.workspace }}/.bun"
+          export BUN_INSTALL="~/.bun"
 
           echo $BUN_INSTALL/bin:$PATH >> $GITHUB_PATH
 

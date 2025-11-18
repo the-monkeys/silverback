@@ -5,12 +5,12 @@ export default class MonkeysUserAccount extends BaseModel {
 	static connection = 'psql'
 	static table = 'user_accounts'
 
-  @column({ isPrimary: true })
-  declare id: number
+	@column({ isPrimary: true })
+	declare id: number
 
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+	@column.dateTime({ autoCreate: true })
+	declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+	@column.dateTime({ autoCreate: true, autoUpdate: true })
+	declare updatedAt: DateTime
 }
