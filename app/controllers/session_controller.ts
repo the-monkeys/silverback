@@ -9,7 +9,7 @@ export default class SessionController {
 	async store(ctx: HttpContext) {
 		const { email } = ctx.request.only(['email'])
 
-		ctx.logger.info('Login requested by user', email)
+		ctx.logger.info('Login requested by user ' + email)
 
 		const user = await User.findBy('email', email)
 
@@ -18,7 +18,7 @@ export default class SessionController {
 			return ctx.response.redirect('/')
 		}
 
-		ctx.logger.warn(email, 'not found')
+		ctx.logger.warn(email + ' not found')
 
 		return ctx.inertia.render('login')
 	}
