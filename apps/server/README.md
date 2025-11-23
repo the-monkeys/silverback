@@ -1,0 +1,1 @@
+This will act as the server for Silverback dashboard and API requests. It is built using golang and uses the Gin framework for routing and middleware management.
