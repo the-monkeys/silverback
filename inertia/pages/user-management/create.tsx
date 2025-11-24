@@ -70,7 +70,7 @@ function UserManagementCreate() {
 
 						<div className="flex col-span-12 gap-1">
 							<Checkbox id="redirect-toggle" />
-							<Label htmlFor="redirect-toggle">Redirct to user details</Label>
+							<Label htmlFor="redirect-toggle">Redirct to created user</Label>
 						</div>
 
 						<Field className="col-span-12" orientation="horizontal">
