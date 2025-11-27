@@ -1,3 +1,4 @@
+import { Bcrypt } from '@adonisjs/core/hash/drivers/bcrypt'
 import type { HttpContext } from '@adonisjs/core/http'
 import { MonkeysDB } from 'drizzle/db.js'
 import { userAccount, userAuthInfo } from 'drizzle/schema.js'
@@ -35,10 +36,7 @@ export default class UserApisController {
 				})
 			}
 
-			const passwordHash = Bun.password.hashSync(body.password, {
-				algorithm: 'bcrypt',
-				cost: 10,
-			})
+			const passwordHash = await new Bcrypt({ saltSize: 10 }).make(body.password)
 
 			const newUserAuth = {
 				authProviderId: 1, // for now default will be monkeys
